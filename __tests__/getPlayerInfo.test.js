@@ -2,7 +2,7 @@ const getPlayerInfo = require("../getPlayerInfo.js");
 const getAllPlayers = require("../getAllPlayers");
 
 describe("getPlayerInfo(): ", () => {
-	describe("getAllFsPlayer(): ", () => {
+	describe("getAllPlayers(): ", () => {
 		test("First test", () => {});
 	});
 

@@ -28,3 +28,11 @@ console.log("Error generating the ranking: ", err);
 });
 
 An API is planned to be implemented in the future for be used on any website.
+
+Instalation:
+
+-   git clone https://github.com/silvafilipeuk/aoe2de-ranked-ladder-generator.git
+
+-   npm install
+
+-   node getPlayerInfo.js
