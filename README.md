@@ -1,6 +1,6 @@
 # aoe2-FS-ranking
 
-AGE OF EMPIRES 2 DE - Ranked ladder ranking generator:
+## AGE OF EMPIRES 2 DE - Ranked ladder ranking generator:
 
 JS function to lookup and retrieve player information on the ranked ladder for a given list of player IDS.
 
@@ -10,7 +10,7 @@ Ranking will be available for 1v1 and Team games.
 
 Solution will be implemented using TDD with jest.
 
-Config:
+## Config:
 
 -   database/players.txt - List with the players ID's that you want the system to generate the ranking. (one per line)
 
@@ -18,18 +18,20 @@ Config:
 
 -   makeRanking() returns a promise... When resolved returns an array of objects {nickname: XXX, elo: 1111}
 
-Example of usage:
+## Example of usage:
 
+```
 makeRanking(3).then((data) => {
 console.log(data);
 })
 .catch((err) => {
 console.log("Error generating the ranking: ", err);
 });
+```
 
 An API is planned to be implemented in the future for be used on any website.
 
-Instalation:
+## Instalation:
 
 -   git clone https://github.com/silvafilipeuk/aoe2de-ranked-ladder-generator.git
 
