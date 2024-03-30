@@ -1,4 +1,4 @@
-# aoe2-FS-ranking
+# AOE2de - RANKED LADDER - Ranking generator 1v1 and TG's
 
 ## AGE OF EMPIRES 2 DE - Ranked ladder ranking generator:
 
@@ -35,5 +35,5 @@ An API is planned to be implemented in the future for be used on any website.
 
 -   git clone https://github.com/silvafilipeuk/aoe2de-ranked-ladder-generator.git
 -   npm install
--   edit database/players.txt with the player_id's that you want to generate the ranking for. (one player_id per line)   
+-   edit database/players.txt with the player_id's that you want to generate the ranking for. (one player_id per line)
 -   node getPlayerInfo.js
