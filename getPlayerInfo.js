@@ -13,26 +13,26 @@ const fs = require("fs");
 // * profile_id (search, steam_id or profile_id required)
 // * Profile ID (ex: 459658)
 
-async function getPlayerInfo(playerId) {
-	const res = await playerRequest({
-		method: "get",
-		url: "https://data.aoe2companion.com/api/nightbot/rank?",
-		params: {
-			leaderboard_id: 3,
-			profile_id: playerId,
-		},
-	})
-		.then((ranking) => {
-			return ranking;
+function getPlayerInfo(playerId, leaderboard_id = 3) {
+	return new Promise(function (resolve, reject) {
+		playerRequest({
+			method: "get",
+			url: "https://data.aoe2companion.com/api/nightbot/rank?",
+			params: {
+				leaderboard_id: leaderboard_id,
+				profile_id: playerId,
+			},
 		})
-		.catch((err) => {
-			return err;
-		});
-
-	return res;
+			.then((ranking) => {
+				resolve(ranking.data);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
 }
 
-function getAllFsPlayers() {
+function getAllPlayers() {
 	return new Promise(function (resolve, reject) {
 		fs.readFile("./database/players.txt", "utf-8", (err, players) => {
 			if (err) {
@@ -45,35 +45,33 @@ function getAllFsPlayers() {
 	});
 }
 
-function makeRanking()
-{
-	getAllFsPlayers().then((data) => {
-		Promise.all(data.map((player) => getPlayerInfo(player)))
+function makeRanking(leaderboard_id) {
+	return getAllPlayers().then((data) => {
+		return Promise.all(
+			data.map((player) => getPlayerInfo(player, leaderboard_id))
+		)
 			.then((players) => {
-
 				let ranking = [];
 
 				players.forEach((player) => {
-					if (
-						player.data !== undefined &&
-						player.data !== "Player not found"
-					)
-					{
-						fsNicknames = /([\[FsFS\]]{4} ){1}[a-zA-Z0-9 ]{1,}/; // Regex to validate [Fs] tag nicknames
-						fsELO = /\([^\d]*(\d+)[^\d]*\)/
-						let nick = player.data.match(fsNicknames);
-						let getElo = player.data.match(fsELO);
-						elo = getElo[0].match(/\(([^)]+)\)/)
+					if (player !== undefined && player !== "Player not found") {
+						fsNicknames = /[\[Fs\] a-zA-Z0-9 ]{1,}/; // Regex to validate [Fs] tag nicknames
+						fsELO = /\([^\d]*(\d+)[^\d]*\)/;
+						let nick = player.match(fsNicknames);
+						let getElo = player.match(fsELO);
+						elo = getElo[0].match(/\(([^)]+)\)/);
 
-						if(nick !== null)
-						{
-							ranking.push({nick: nick[0].trim(), elo: Number(elo[1])})							
-						}								
-					}						
+						if (nick !== null) {
+							ranking.push({
+								nickname: nick[0].trim(),
+								elo: Number(elo[1]),
+							});
+						}
+					}
 				});
 
 				ranking = ranking.sort((a, b) => b.elo - a.elo);
-				console.log(ranking)
+				return ranking;
 			})
 			.catch((err) => {
 				console.log("Error resolving players: ", err);
@@ -81,4 +79,10 @@ function makeRanking()
 	});
 }
 
-makeRanking()
+makeRanking(3)
+	.then((data) => {
+		console.log(data);
+	})
+	.catch((err) => {
+		console.log("Error generating the ranking: ", err);
+	});

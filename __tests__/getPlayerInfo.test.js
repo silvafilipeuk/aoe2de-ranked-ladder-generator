@@ -1,5 +1,5 @@
 const getPlayerInfo = require("../getPlayerInfo.js");
-const getAllFsPlayers = require("../getAllFsPlayers");
+const getAllPlayers = require("../getAllPlayers");
 
 describe("getPlayerInfo(): ", () => {
 	describe("getAllFsPlayer(): ", () => {
