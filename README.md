@@ -34,7 +34,6 @@ An API is planned to be implemented in the future for be used on any website.
 ## Instalation:
 
 -   git clone https://github.com/silvafilipeuk/aoe2de-ranked-ladder-generator.git
-
 -   npm install
-
+-   edit database/players.txt with the player_id's that you want to generate the ranking for. (one player_id per line)   
 -   node getPlayerInfo.js
