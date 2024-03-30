@@ -55,11 +55,14 @@ function makeRanking(leaderboard_id) {
 
 				players.forEach((player) => {
 					if (player !== undefined && player !== "Player not found") {
-						fsNicknames = /[\[Fs\] a-zA-Z0-9 ]{1,}/; // Regex to validate [Fs] tag nicknames
-						fsELO = /\([^\d]*(\d+)[^\d]*\)/;
-						let nick = player.match(fsNicknames);
-						let getElo = player.match(fsELO);
-						elo = getElo[0].match(/\(([^)]+)\)/);
+						nicknames = /[\[Fs\] a-zA-Z0-9 ]{1,}/; // Regex to validate nicknames
+						ELO = /\([^\d]*(\d+)[^\d]*\)/;
+
+						let nick = player.match(nicknames); // Fetch the nickname from the result string
+
+						let getElo = player.match(ELO); // Fectch the ELO from the result string with (xxxx)
+
+						let elo = getElo[0].match(/\(([^)]+)\)/); // Remove the parenthesis from the ELO string
 
 						if (nick !== null) {
 							ranking.push({
