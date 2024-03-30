@@ -8,8 +8,6 @@ The function will use the aoe2companion.com API to retreive the Player data and 
 
 Ranking will be available for 1v1 and Team games.
 
-Solution will be implemented using TDD with jest.
-
 ## Config:
 
 -   database/players.txt - List with the players ID's that you want the system to generate the ranking. (one per line)

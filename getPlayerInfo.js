@@ -80,8 +80,9 @@ function makeRanking(leaderboard_id) {
 }
 
 makeRanking(3)
-	.then((data) => {
-		console.log(data);
+	.then((ranking) => {
+		//You can manipulate the ranking with the ranking object.
+		console.log(ranking);
 	})
 	.catch((err) => {
 		console.log("Error generating the ranking: ", err);
