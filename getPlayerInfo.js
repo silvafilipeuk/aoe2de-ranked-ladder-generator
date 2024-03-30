@@ -33,8 +33,6 @@ async function getPlayerInfo(playerId) {
 }
 
 function getAllFsPlayers() {
-	regex = /^([\[FsFS\]]{4}) ?([a-zA-Z0-9]*) ?([a-zA-Z0-9]*)*/; // Regex to validate [Fs] tag nicknames
-
 	return new Promise(function (resolve, reject) {
 		fs.readFile("./database/players.txt", "utf-8", (err, players) => {
 			if (err) {
@@ -47,18 +45,40 @@ function getAllFsPlayers() {
 	});
 }
 
-getAllFsPlayers().then((data) => {
-	Promise.all(data.map((player) => getPlayerInfo(player)))
-		.then((players) => {
-			players.forEach((player) => {
-				if (
-					player.data !== undefined &&
-					player.data !== "Player not found"
-				)
-					console.log(player.data);
+function makeRanking()
+{
+	getAllFsPlayers().then((data) => {
+		Promise.all(data.map((player) => getPlayerInfo(player)))
+			.then((players) => {
+
+				let ranking = [];
+
+				players.forEach((player) => {
+					if (
+						player.data !== undefined &&
+						player.data !== "Player not found"
+					)
+					{
+						fsNicknames = /([\[FsFS\]]{4} ){1}[a-zA-Z0-9 ]{1,}/; // Regex to validate [Fs] tag nicknames
+						fsELO = /\([^\d]*(\d+)[^\d]*\)/
+						let nick = player.data.match(fsNicknames);
+						let getElo = player.data.match(fsELO);
+						elo = getElo[0].match(/\(([^)]+)\)/)
+
+						if(nick !== null)
+						{
+							ranking.push({nick: nick[0].trim(), elo: Number(elo[1])})							
+						}								
+					}						
+				});
+
+				ranking = ranking.sort((a, b) => b.elo - a.elo);
+				console.log(ranking)
+			})
+			.catch((err) => {
+				console.log("Error resolving players: ", err);
 			});
-		})
-		.catch((err) => {
-			console.log("Error resolving players: ", err);
-		});
-});
+	});
+}
+
+makeRanking()
