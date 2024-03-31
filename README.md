@@ -14,7 +14,9 @@ Ranking will be available for 1v1 and Team games.
 
 -   makeRanking(leaderboard_id) - Call the function passing the ID of the leaderboard you want to generate the ranking. 3 - RM 1v1 / 4 - Team RM (Default 3)
 
--   makeRanking() returns a promise... When resolved returns an array of objects {nickname: XXX, elo: 1111}
+-   makeRanking() returns a promise... When resolved returns an array of objects...
+
+- Return value: Array of Objects = { nickname: XXX, elo: 1111, rankPos: #1234, winrate: "50% winrate" }
 
 ## Example of usage:
 

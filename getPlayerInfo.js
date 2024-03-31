@@ -53,21 +53,32 @@ function makeRanking(leaderboard_id) {
 			.then((players) => {
 				let ranking = [];
 
+				let mode = (leaderboard_id === 3) ? "RM 1v1" : (leaderboard_id === 4) ? "RM TG" : "Unknown";
+
 				players.forEach((player) => {
 					if (player !== undefined && player !== "Player not found") {
 						nicknames = /[\[Fs\] a-zA-Z0-9 ]{1,}/; // Regex to validate nicknames
 						ELO = /\([^\d]*(\d+)[^\d]*\)/;
 
-						let nick = player.match(nicknames); // Fetch the nickname from the result string
+						const nick = player.match(nicknames); // Fetch the nickname from the result string
 
-						let getElo = player.match(ELO); // Fectch the ELO from the result string with (xxxx)
+						const getElo = player.match(ELO); // Fectch the ELO from the result string with (xxxx)
 
-						let elo = getElo[0].match(/\(([^)]+)\)/); // Remove the parenthesis from the ELO string
+						const elo = getElo[0].match(/\(([^)]+)\)/); // Remove the parenthesis from the ELO string
+						
+						let rankPos = player.match(/#[0-9]{1,4}/) // Get the current ranking position of the player.
+						rankPos = (rankPos === null) ? "No recent activity on " + mode : rankPos[0];
+
+						let winrate = player.match(/[0-9]{1,3}% winrate/)
+						winrate = (winrate === null) ? "No recent activity on " + mode : winrate[0]
+
 
 						if (nick !== null) {
 							ranking.push({
 								nickname: nick[0].trim(),
 								elo: Number(elo[1]),
+								rankPos: rankPos,
+								winrate: winrate,
 							});
 						}
 					}
