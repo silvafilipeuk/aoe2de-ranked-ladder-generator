@@ -394,4 +394,24 @@
   "method": "GET",
   "url": "/api/player?steam_id=76561198289002713",
   "time": "Sat Apr 06 2024 - 17:52:35 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?nickname=%22%5BFs%5D%20NegoDrama%22",
+  "time": "Sat Apr 06 2024 - 18:14:45 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?nickname=%22Mr.%20F1re%22",
+  "time": "Sat Apr 06 2024 - 18:15:01 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?nickname=%22Mr.F1re%22",
+  "time": "Sat Apr 06 2024 - 18:15:05 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?nickname=%22Gl.%20The%20Viper%22",
+  "time": "Sat Apr 06 2024 - 18:15:17 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?nickname=%22areH.LG%22",
+  "time": "Sat Apr 06 2024 - 18:15:35 GMT+0100 (British Summer Time)"
 }

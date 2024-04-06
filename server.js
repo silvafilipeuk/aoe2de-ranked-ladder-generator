@@ -1,6 +1,6 @@
 const app = require("./app");
-const PORT = 9090;
+const PORT = 80;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+	console.log(`Server listening on port ${PORT}`);
 });
