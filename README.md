@@ -59,23 +59,23 @@ If passed both the search will use steam_id.
 -   JSON:
 ```
 {
-"nick": "[Fs] TchachaBR",
-"country": "gb",
-"rm1v1Stats": {
-"rating": 1467,
-"wins": 1350,
-"losses": 1308,
-"streak": 4,
-"drops": 18,
-"highestrating": 1559
-},
-"rmTGStats": {
-"rating": 1411,
-"wins": 168,
-"losses": 132,
-"streak": -2,
-"drops": 1,
-"highestrating": 1468
-}
+  "nick": "[Fs] TchachaBR",
+  "country": "gb",
+  "rm1v1Stats": {
+    "rating": 1467,
+    "wins": 1350,
+    "losses": 1308,
+    "streak": 4,
+    "drops": 18,
+    "highestrating": 1559
+  },
+  "rmTGStats": {
+    "rating": 1411,
+    "wins": 168,
+    "losses": 132,
+    "streak": -2,
+    "drops": 1,
+    "highestrating": 1468
+  }
 }
 ```
