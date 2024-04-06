@@ -57,7 +57,7 @@ If passed both the search will use steam_id.
 # Return value:
 
 -   JSON:
-
+```
 {
 "nick": "[Fs] TchachaBR",
 "country": "gb",
@@ -78,3 +78,4 @@ If passed both the search will use steam_id.
 "highestrating": 1468
 }
 }
+```
