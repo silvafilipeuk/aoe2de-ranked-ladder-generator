@@ -16,7 +16,7 @@ Ranking will be available for 1v1 and Team games.
 
 -   makeRanking() returns a promise... When resolved returns an array of objects...
 
-- Return value: Array of Objects = { nickname: XXX, elo: 1111, rankPos: #1234, winrate: "50% winrate" }
+-   Return value: Array of Objects = { nickname: XXX, elo: 1111, rankPos: #1234, winrate: "50% winrate" }
 
 ## Example of usage:
 
@@ -37,3 +37,19 @@ An API is planned to be implemented in the future for be used on any website.
 -   npm install
 -   edit database/players.txt with the player_id's that you want to generate the ranking for. (one player_id per line)
 -   node getPlayerInfo.js
+
+## API
+
+# Endpoint: /api/player
+
+# Parameters:
+
+-   steam_id: Player steam ID (more precise search)
+-   nickname: Player nickname
+
+# Usage:
+
+-   Example of call: /api/player?nickname="[Fs] TchachaBR"
+-   Example of call: /api/player?steam_id=76561198289002713
+
+If passed both the search will use steam_id.

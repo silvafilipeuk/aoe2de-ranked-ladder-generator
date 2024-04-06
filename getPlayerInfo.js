@@ -41,7 +41,12 @@ function makeRanking(leaderboard_id) {
 			.then((players) => {
 				let ranking = [];
 
-				let mode = (leaderboard_id === 3) ? "RM 1v1" : (leaderboard_id === 4) ? "RM TG" : "Unknown";
+				let mode =
+					leaderboard_id === 3
+						? "RM 1v1"
+						: leaderboard_id === 4
+						? "RM TG"
+						: "Unknown";
 
 				players.forEach((player) => {
 					if (player !== undefined && player !== "Player not found") {
@@ -53,13 +58,18 @@ function makeRanking(leaderboard_id) {
 						const getElo = player.match(ELO); // Fectch the ELO from the result string with (xxxx)
 
 						const elo = getElo[0].match(/\(([^)]+)\)/); // Remove the parenthesis from the ELO string
-						
-						let rankPos = player.match(/#[0-9]{1,4}/) // Get the current ranking position of the player.
-						rankPos = (rankPos === null) ? "No recent activity on " + mode : rankPos[0];
 
-						let winrate = player.match(/[0-9]{1,3}% winrate/)
-						winrate = (winrate === null) ? "No recent activity on " + mode : winrate[0]
+						let rankPos = player.match(/#[0-9]{1,4}/); // Get the current ranking position of the player.
+						rankPos =
+							rankPos === null
+								? "No recent activity on " + mode
+								: rankPos[0];
 
+						let winrate = player.match(/[0-9]{1,3}% winrate/);
+						winrate =
+							winrate === null
+								? "No recent activity on " + mode
+								: winrate[0];
 
 						if (nick !== null) {
 							ranking.push({
