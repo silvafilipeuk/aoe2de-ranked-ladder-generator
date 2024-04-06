@@ -390,4 +390,8 @@
   "method": "GET",
   "url": "/api/player?steam_id=76561198289002713",
   "time": "Sat Apr 06 2024 - 14:27:53 GMT+0100 (British Summer Time)"
+}{
+  "method": "GET",
+  "url": "/api/player?steam_id=76561198289002713",
+  "time": "Sat Apr 06 2024 - 17:52:35 GMT+0100 (British Summer Time)"
 }

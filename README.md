@@ -40,7 +40,7 @@ An API is planned to be implemented in the future for be used on any website.
 
 ## API
 
-# Endpoint: /api/player
+-   Endpoint: /api/player
 
 # Parameters:
 
@@ -53,3 +53,28 @@ An API is planned to be implemented in the future for be used on any website.
 -   Example of call: /api/player?steam_id=76561198289002713
 
 If passed both the search will use steam_id.
+
+# Return value:
+
+-   JSON:
+
+{
+"nick": "[Fs] TchachaBR",
+"country": "gb",
+"rm1v1Stats": {
+"rating": 1467,
+"wins": 1350,
+"losses": 1308,
+"streak": 4,
+"drops": 18,
+"highestrating": 1559
+},
+"rmTGStats": {
+"rating": 1411,
+"wins": 168,
+"losses": 132,
+"streak": -2,
+"drops": 1,
+"highestrating": 1468
+}
+}
