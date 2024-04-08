@@ -1,7 +1,15 @@
-const infoRequest = require("axios");
+const axios = require("axios");
+const rateLimit = require("axios-rate-limit");
+
+infoRequest = rateLimit(axios.create(), {
+	maxRequests: 2,
+	perMilliseconds: 50,
+	maxRPS: 40,
+});
+
 const fs = require("fs");
 
-function getFSPlayersSteamId() {
+function getFSPlayersProfileId() {
 	return new Promise(function (resolve, reject) {
 		fs.readFile("./database/fs_steam_ids.txt", "utf-8", (err, players) => {
 			if (err) {
@@ -18,7 +26,11 @@ function getPlayerInfo(player) {
 	const playerInfoUrl = `https://aoe-api.reliclink.com/community/leaderboard/GetPersonalStat?title=age2`;
 	let parameters = {};
 
-	if (player.hasOwnProperty("steam_id")) {
+	if (player.hasOwnProperty("profile_id")) {
+		parameters = {
+			profile_ids: `[${player.profile_id}]`,
+		};
+	} else if (player.hasOwnProperty("steam_id")) {
 		parameters = {
 			profile_names: `["/steam/${player.steam_id}"]`,
 		};
@@ -109,7 +121,7 @@ function getPlayerInfo(player) {
 }
 
 function getFSRank1v1Info() {
-	return getFSPlayersSteamId().then((data) => {
+	return getFSPlayersProfileId().then((data) => {
 		const playersArray = data.map((player) =>
 			getPlayerInfo({ steam_id: player })
 		);
@@ -140,7 +152,7 @@ function getFSRank1v1Info() {
 }
 
 function getFSRankTgInfo() {
-	return getFSPlayersSteamId().then((data) => {
+	return getFSPlayersProfileId().then((data) => {
 		const playersArray = data.map((player) =>
 			getPlayerInfo({ steam_id: player })
 		);
@@ -171,7 +183,7 @@ function getFSRankTgInfo() {
 }
 
 function getFSRankMaxInfo() {
-	return getFSPlayersSteamId().then((data) => {
+	return getFSPlayersProfileId().then((data) => {
 		const playersArray = data.map((player) =>
 			getPlayerInfo({ steam_id: player })
 		);
@@ -189,7 +201,7 @@ function getFSRankMaxInfo() {
 
 			ranking = ranking.sort((a, b) => b.highestrating - a.highestrating);
 
-			let strRanking = "Fellowsheep Team Game Ranking: <br><br>";
+			let strRanking = "Fellowsheep Maximum rating Ranking: <br><br>";
 
 			for (let i = 1; i < ranking.length + 1; i++) {
 				strRanking += `${i} - ${ranking[i - 1].nickname} - 1v1: ${
