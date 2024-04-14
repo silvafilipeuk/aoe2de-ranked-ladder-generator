@@ -14,9 +14,9 @@ https
 		// Provide the private and public key to the server by reading each
 		// file's content with the readFileSync() method.
 		{
-			key: fs.readFileSync("public.key"),
-			cert: fs.readFileSync("filipedasilva_co_uk.pem"),
-		},
+			key: fs.readFileSync("filipedasilva.co.uk.key"),
+			cert: fs.readFileSync("filipedasilva_co_uk.crt"),
+			},
 		app
 	)
 	.listen(PORTHTTPS, () => {
