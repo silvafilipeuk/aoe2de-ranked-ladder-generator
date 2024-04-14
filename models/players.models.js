@@ -199,7 +199,7 @@ function getFSRankMaxInfo() {
 				});
 			});
 
-			ranking = ranking.sort((a, b) => b.highestrating - a.highestrating);
+			ranking = ranking.sort((a, b) => b.rating1v1 - a.rating1v1);
 
 			let strRanking = "Fellowsheep Maximum rating Ranking: <br><br>";
 
