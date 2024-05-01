@@ -2,8 +2,8 @@ const app = require("./app");
 const https = require("https");
 const fs = require("fs");
 
-const PORT = 80;
-const PORTHTTPS = 443;
+const PORT = 8080;
+const PORTHTTPS = 4443;
 
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`);
