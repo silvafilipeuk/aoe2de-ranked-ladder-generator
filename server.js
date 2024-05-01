@@ -16,7 +16,7 @@ https
 		{
 			key: fs.readFileSync("filipedasilva.co.uk.key"),
 			cert: fs.readFileSync("filipedasilva_co_uk.crt"),
-			},
+		},
 		app
 	)
 	.listen(PORTHTTPS, () => {

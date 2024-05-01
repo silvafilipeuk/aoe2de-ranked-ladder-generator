@@ -132,21 +132,18 @@ function getFSRank1v1Info() {
 			players.forEach((player) => {
 				ranking.push({
 					nickname: player.nick,
+					country: player.country,
 					rating: player.rm1v1Stats.rating,
+					streak: player.rm1v1Stats.streak,
+					wins: player.rm1v1Stats.wins,
+					losses: player.rm1v1Stats.losses,
+					highestrating: player.rm1v1Stats.highestrating,
 				});
 			});
 
 			ranking = ranking.sort((a, b) => b.rating - a.rating);
 
-			let strRanking = "Fellowsheep RM 1v1 Ranking: <br><br>";
-
-			for (let i = 1; i < ranking.length + 1; i++) {
-				strRanking += `${i} - ${ranking[i - 1].nickname} - ${
-					ranking[i - 1].rating
-				}<br>`;
-			}
-
-			return strRanking;
+			return ranking;
 		});
 	});
 }
@@ -163,21 +160,18 @@ function getFSRankTgInfo() {
 			players.forEach((player) => {
 				ranking.push({
 					nickname: player.nick,
+					country: player.country,
 					rating: player.rmTGStats.rating,
+					streak: player.rmTGStats.streak,
+					wins: player.rmTGStats.wins,
+					losses: player.rmTGStats.losses,
+					highestrating: player.rmTGStats.highestrating,
 				});
 			});
 
 			ranking = ranking.sort((a, b) => b.rating - a.rating);
 
-			let strRanking = "Fellowsheep Team Game Ranking: <br><br>";
-
-			for (let i = 1; i < ranking.length + 1; i++) {
-				strRanking += `${i} - ${ranking[i - 1].nickname} - ${
-					ranking[i - 1].rating
-				}<br>`;
-			}
-
-			return strRanking;
+			return ranking;
 		});
 	});
 }
@@ -201,15 +195,7 @@ function getFSRankMaxInfo() {
 
 			ranking = ranking.sort((a, b) => b.rating1v1 - a.rating1v1);
 
-			let strRanking = "Fellowsheep Maximum rating Ranking: <br><br>";
-
-			for (let i = 1; i < ranking.length + 1; i++) {
-				strRanking += `${i} - ${ranking[i - 1].nickname} - 1v1: ${
-					ranking[i - 1].rating1v1
-				} - TG: ${ranking[i - 1].ratingTG}<br>`;
-			}
-
-			return strRanking;
+			return ranking;
 		});
 	});
 }
