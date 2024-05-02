@@ -12,6 +12,8 @@ const {
 
 app.use(express.json());
 
+app.use(cors());
+
 app.use(logger);
 
 app.get("/api", getStatus);
