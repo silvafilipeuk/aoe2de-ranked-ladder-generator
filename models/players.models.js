@@ -55,10 +55,11 @@ function getPlayerInfo(player) {
 					playerInfo.data.leaderboardStats.filter(
 						(leaderboard) =>
 							leaderboard.leaderboard_id === 3 ||
-							leaderboard.leaderboard_id === 4
+							leaderboard.leaderboard_id === 4 ||
+							leaderboard.leaderboard_id === 27
 					);
 
-				if (playerInfo.data.leaderboardStats.length > 1) {
+				if (playerInfo.data.leaderboardStats.length === 3) {
 					const playerData = {
 						nick: playerInfo.data.statGroups[0].members[0].alias,
 						country:
@@ -83,6 +84,53 @@ function getPlayerInfo(player) {
 								playerInfo.data.leaderboardStats[1]
 									.highestrating,
 						},
+						rmEWStats: {
+							rating: playerInfo.data.leaderboardStats[2].rating,
+							wins: playerInfo.data.leaderboardStats[2].wins,
+							losses: playerInfo.data.leaderboardStats[2].losses,
+							streak: playerInfo.data.leaderboardStats[2].streak,
+							drops: playerInfo.data.leaderboardStats[2].drops,
+							highestrating:
+								playerInfo.data.leaderboardStats[2]
+									.highestrating,
+						},
+					};
+					resolve(playerData);
+				}
+
+				if (playerInfo.data.leaderboardStats.length === 2) {
+					const playerData = {
+						nick: playerInfo.data.statGroups[0].members[0].alias,
+						country:
+							playerInfo.data.statGroups[0].members[0].country,
+						rm1v1Stats: {
+							rating: playerInfo.data.leaderboardStats[0].rating,
+							wins: playerInfo.data.leaderboardStats[0].wins,
+							losses: playerInfo.data.leaderboardStats[0].losses,
+							streak: playerInfo.data.leaderboardStats[0].streak,
+							drops: playerInfo.data.leaderboardStats[0].drops,
+							highestrating:
+								playerInfo.data.leaderboardStats[0]
+									.highestrating,
+						},
+						rmTGStats: {
+							rating: playerInfo.data.leaderboardStats[1].rating,
+							wins: playerInfo.data.leaderboardStats[1].wins,
+							losses: playerInfo.data.leaderboardStats[1].losses,
+							streak: playerInfo.data.leaderboardStats[1].streak,
+							drops: playerInfo.data.leaderboardStats[1].drops,
+							highestrating:
+								playerInfo.data.leaderboardStats[1]
+									.highestrating,
+						},
+						rmEWStats: {
+							rating: 0,
+							wins: 0,
+							losses: 0,
+							streak: 0,
+							drops: 0,
+							highestrating: 0,
+						},
 					};
 					resolve(playerData);
 				}
@@ -102,6 +150,14 @@ function getPlayerInfo(player) {
 									.highestrating,
 						},
 						rmTGStats: {
+							rating: 0,
+							wins: 0,
+							losses: 0,
+							streak: 0,
+							drops: 0,
+							highestrating: 0,
+						},
+						rmEWStats: {
 							rating: 0,
 							wins: 0,
 							losses: 0,
@@ -200,9 +256,39 @@ function getFSRankMaxInfo() {
 	});
 }
 
+function getFSRankEWInfo() {
+	return getFSPlayersProfileId().then((data) => {
+		const playersArray = data.map((player) =>
+			getPlayerInfo({ steam_id: player })
+		);
+
+		return Promise.all(playersArray).then((players) => {
+			let ranking = [];
+
+			players.forEach((player) => {
+				if (player.rmEWStats.rating !== 0) {
+					ranking.push({
+						nickname: player.nick,
+						country: player.country,
+						rating: player.rmEWStats.rating,
+						streak: player.rmEWStats.streak,
+						wins: player.rmEWStats.wins,
+						losses: player.rmEWStats.losses,
+						highestrating: player.rmEWStats.highestrating,
+					});
+				}
+			});
+
+			ranking = ranking.sort((a, b) => b.rating - a.rating);
+			return ranking;
+		});
+	});
+}
+
 module.exports = {
 	getPlayerInfo,
 	getFSRank1v1Info,
 	getFSRankTgInfo,
 	getFSRankMaxInfo,
+	getFSRankEWInfo,
 };

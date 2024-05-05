@@ -9,6 +9,7 @@ const {
 	getFSRank1v1,
 	getFSRankTg,
 	getFSRankMax,
+	getFSRankEw,
 } = require("./controllers/players.controller");
 
 app.use(express.json());
@@ -26,5 +27,7 @@ app.get("/api/rankFS1v1", getFSRank1v1);
 app.get("/api/rankFSTg", getFSRankTg);
 
 app.get("/api/rankFSMax", getFSRankMax);
+
+app.get("/api/rankFSEw", getFSRankEw);
 
 module.exports = app;
