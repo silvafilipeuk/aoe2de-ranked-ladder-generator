@@ -6,10 +6,10 @@ const PORT = 80;
 const PORTHTTPS = 443;
 
 app.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
 
-https
+/*https
 	.createServer(
 		// Provide the private and public key to the server by reading each
 		// file's content with the readFileSync() method.
@@ -21,4 +21,4 @@ https
 	)
 	.listen(PORTHTTPS, () => {
 		console.log("https server listening on port 443");
-	});
+	});*/
