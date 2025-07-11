@@ -22,6 +22,19 @@ function getFSPlayersProfileId() {
 	});
 }
 
+function getAllPlayersProfileId() {
+	return new Promise(function (resolve, reject) {
+		fs.readFile("./database/players.txt", "utf-8", (err, players) => {
+			if (err) {
+				reject(err);
+			} else {
+				const data = players.split("\n");
+				resolve(data);
+			}
+		});
+	});
+}
+
 function getPlayerInfo(player) {
 	const playerInfoUrl = `https://aoe-api.worldsedgelink.com/community/leaderboard/GetPersonalStat?title=age2`;
 	let parameters = {};
@@ -286,10 +299,97 @@ function getFSRankEWInfo() {
 	});
 }
 
+// Novas funções para todos os jogadores
+function getAllRank1v1Info() {
+	return getAllPlayersProfileId().then((data) => {
+		const playersArray = data.map((player) =>
+			getPlayerInfo({ steam_id: player })
+		);
+
+		return Promise.all(playersArray).then((players) => {
+			let ranking = [];
+
+			players.forEach((player) => {
+				ranking.push({
+					nickname: player.nick,
+					country: player.country,
+					rating: player.rm1v1Stats.rating,
+					streak: player.rm1v1Stats.streak,
+					wins: player.rm1v1Stats.wins,
+					losses: player.rm1v1Stats.losses,
+					highestrating: player.rm1v1Stats.highestrating,
+				});
+			});
+
+			ranking = ranking.sort((a, b) => b.rating - a.rating);
+			return ranking;
+		});
+	});
+}
+
+function getAllRankTgInfo() {
+	return getAllPlayersProfileId().then((data) => {
+		const playersArray = data.map((player) =>
+			getPlayerInfo({ steam_id: player })
+		);
+
+		return Promise.all(playersArray).then((players) => {
+			let ranking = [];
+
+			players.forEach((player) => {
+				ranking.push({
+					nickname: player.nick,
+					country: player.country,
+					rating: player.rmTGStats.rating,
+					streak: player.rmTGStats.streak,
+					wins: player.rmTGStats.wins,
+					losses: player.rmTGStats.losses,
+					highestrating: player.rmTGStats.highestrating,
+				});
+			});
+
+			ranking = ranking.sort((a, b) => b.rating - a.rating);
+			return ranking;
+		});
+	});
+}
+
+function getAllRankEWInfo() {
+	return getAllPlayersProfileId().then((data) => {
+		const playersArray = data.map((player) =>
+			getPlayerInfo({ steam_id: player })
+		);
+
+		return Promise.all(playersArray).then((players) => {
+			let ranking = [];
+
+			players.forEach((player) => {
+				if (player.rmEWStats.rating !== 0) {
+					ranking.push({
+						nickname: player.nick,
+						country: player.country,
+						rating: player.rmEWStats.rating,
+						streak: player.rmEWStats.streak,
+						wins: player.rmEWStats.wins,
+						losses: player.rmEWStats.losses,
+						highestrating: player.rmEWStats.highestrating,
+					});
+				}
+			});
+
+			ranking = ranking.sort((a, b) => b.rating - a.rating);
+			return ranking;
+		});
+	});
+}
+
 module.exports = {
 	getPlayerInfo,
 	getFSRank1v1Info,
 	getFSRankTgInfo,
 	getFSRankMaxInfo,
 	getFSRankEWInfo,
+	getAllRank1v1Info,
+	getAllRankTgInfo,
+	getAllRankEWInfo,
 };

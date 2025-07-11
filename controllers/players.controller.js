@@ -4,6 +4,9 @@ const {
 	getFSRankTgInfo,
 	getFSRankMaxInfo,
 	getFSRankEWInfo,
+	getAllRank1v1Info,
+	getAllRankTgInfo,
+	getAllRankEWInfo,
 } = require("../models/players.models");
 
 function getStatus(req, res, next) {
@@ -63,6 +66,38 @@ function getFSRankMax(req, res, next) {
 		});
 }
 
+// Novos controllers para todos os jogadores
+function getAllRank1v1(req, res, next) {
+	getAllRank1v1Info()
+		.then((ranking) => {
+			res.status(200).send(ranking);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json(err);
+		});
+}
+
+function getAllRankTg(req, res, next) {
+	getAllRankTgInfo()
+		.then((ranking) => {
+			res.status(200).send(ranking);
+		})
+		.catch((err) => {
+			res.status(400).json(err);
+		});
+}
+
+function getAllRankEw(req, res, next) {
+	getAllRankEWInfo()
+		.then((ranking) => {
+			res.status(200).send(ranking);
+		})
+		.catch((err) => {
+			res.status(400).json(err);
+		});
+}
+
 module.exports = {
 	getStatus,
 	getPlayer,
@@ -70,4 +105,7 @@ module.exports = {
 	getFSRankTg,
 	getFSRankMax,
 	getFSRankEw,
+	getAllRank1v1,
+	getAllRankTg,
+	getAllRankEw,
 };
